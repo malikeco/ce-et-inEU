@@ -1,5 +1,5 @@
 *===============================================================================
-****-  EThe dynamic impact of circular economy on EU’s energy transition under the moderating and transitioning role of financial structure and circular carbon technology innovation: Evidence from C-Lasso and PSTR approaches.
+****-  Circular economy and EU’s energy transition: The moderating and transitioning effects of financial structure and circular carbon technology innovation: Evidence from C-Lasso and PSTR approaches.
 Khadim Hussain 1*, Zhong Jian, and Anwar Khan, 
 ****
 *===============================================================================
