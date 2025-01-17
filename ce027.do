@@ -96,6 +96,25 @@ est store a2
 sqreg LnET LnCE12 LnURP LnGDP LnGrFin LnFins LnREIT LnCCUS LnET1, quantile(.20 ) reps(100)
 est store a3
 esttab a1 a2 a3  using Table-Robust_QREG.rtf, replace b(%6.3f) t(%6.2f) star(* 0.10 ** 0.05 *** 0.01) nogap
+**************************************Table 7 and Figure 6-Effect of Policy change (Approximately  50min are required.)**********************************
+gen COVID = (year >= 2019) // this will genrate a new data with 0 and 1 for beofre and after COVID-19
+reghdfe LnET LnCE12 LnURP LnGDP LnGrFin LnFins LnREIT LnCCUS LnET1 if COVID==0 , a(id year) 
+est store d1 
+reghdfe LnET LnCE12 LnURP LnGDP LnGrFin LnFins LnREIT LnCCUS LnET1 if COVID==1 , a(id year) 
+est store d2
+classifylasso LnET LnCE12 LnURP LnGDP LnGrFin LnFins LnREIT LnCCUS LnET1 if COVID==0, group(1/5) rho(0.2) dynamic optmaxiter(300)
+estimates save beCOVID
+estimates replay,outreg2("beCOVID.xls")
+classogroup, export("Fig6_1.png") // can save file in pnd, eps, or pdf
+classocoef LnCE12, export("Fig6_2.png")
+classifylasso LnET LnCE12 LnURP LnGDP LnGrFin LnFins LnREIT LnCCUS LnET1 if COVID==1, group(1/5) rho(0.2) dynamic optmaxiter(300)
+estimates save afterCOVID
+estimates replay,outreg2("afterCOVID.xls")
+classogroup, export("Fig6_3.eps")
+classocoef LnCE12, export("Fig6_4.eps")
+esttab d?, b(%6.4f) t(%6.2f) r2 ar2 star(* 0.10 ** 0.05 *** 0.01) obslast compress nogap 
+esttab d? using Table7.rtf, replace b(%6.4f) t(%6.2f) r2 ar2 star(* 0.1 ** 0.05 *** 0.01) nogap
+
 
 log close
 
